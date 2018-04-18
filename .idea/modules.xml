@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/wy-wallet.iml" filepath="$PROJECT_DIR$/wy-wallet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wy-wallet-common/wy-wallet-common.iml" filepath="$PROJECT_DIR$/wy-wallet-common/wy-wallet-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wy-wallet-consumer/wy-wallet-consumer.iml" filepath="$PROJECT_DIR$/wy-wallet-consumer/wy-wallet-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wy-wallet-provide/wy-wallet-provide.iml" filepath="$PROJECT_DIR$/wy-wallet-provide/wy-wallet-provide.iml" />
+    </modules>
+  </component>
+</project>

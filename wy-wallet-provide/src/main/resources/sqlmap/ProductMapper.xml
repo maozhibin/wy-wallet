@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.model.Product">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="money_min" jdbcType="DOUBLE" property="moneyMin" />
+    <result column="money_max" jdbcType="DOUBLE" property="moneyMax" />
+    <result column="time_min" jdbcType="INTEGER" property="timeMin" />
+    <result column="time_max" jdbcType="INTEGER" property="timeMax" />
+    <result column="time_delta_type" jdbcType="INTEGER" property="timeDeltaType" />
+    <result column="rate" jdbcType="DOUBLE" property="rate" />
+    <result column="bank_card_attestation_cost" jdbcType="DOUBLE" property="bankCardAttestationCost" />
+    <result column="overdueServiceRate" jdbcType="DOUBLE" property="overdueservicerate" />
+    <result column="info_attestation_cost" jdbcType="DOUBLE" property="infoAttestationCost" />
+    <result column="defaulted_interest" jdbcType="DOUBLE" property="defaultedInterest" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="appShow" jdbcType="INTEGER" property="appshow" />
+    <result column="valid" jdbcType="INTEGER" property="valid" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, money_min, money_max, time_min, time_max, time_delta_type, rate, bank_card_attestation_cost, 
+    overdueServiceRate, info_attestation_cost, defaulted_interest, status, appShow, valid, 
+    createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <insert id="insert" parameterType="com.model.Product">
+    insert into product (id, name, money_min, 
+      money_max, time_min, time_max, 
+      time_delta_type, rate, bank_card_attestation_cost, 
+      overdueServiceRate, info_attestation_cost, 
+      defaulted_interest, status, appShow, 
+      valid, createTime)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{moneyMin,jdbcType=DOUBLE}, 
+      #{moneyMax,jdbcType=DOUBLE}, #{timeMin,jdbcType=INTEGER}, #{timeMax,jdbcType=INTEGER}, 
+      #{timeDeltaType,jdbcType=INTEGER}, #{rate,jdbcType=DOUBLE}, #{bankCardAttestationCost,jdbcType=DOUBLE}, 
+      #{overdueservicerate,jdbcType=DOUBLE}, #{infoAttestationCost,jdbcType=DOUBLE}, 
+      #{defaultedInterest,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, #{appshow,jdbcType=INTEGER}, 
+      #{valid,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.model.Product">
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="moneyMin != null">
+        money_min,
+      </if>
+      <if test="moneyMax != null">
+        money_max,
+      </if>
+      <if test="timeMin != null">
+        time_min,
+      </if>
+      <if test="timeMax != null">
+        time_max,
+      </if>
+      <if test="timeDeltaType != null">
+        time_delta_type,
+      </if>
+      <if test="rate != null">
+        rate,
+      </if>
+      <if test="bankCardAttestationCost != null">
+        bank_card_attestation_cost,
+      </if>
+      <if test="overdueservicerate != null">
+        overdueServiceRate,
+      </if>
+      <if test="infoAttestationCost != null">
+        info_attestation_cost,
+      </if>
+      <if test="defaultedInterest != null">
+        defaulted_interest,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="appshow != null">
+        appShow,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyMin != null">
+        #{moneyMin,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyMax != null">
+        #{moneyMax,jdbcType=DOUBLE},
+      </if>
+      <if test="timeMin != null">
+        #{timeMin,jdbcType=INTEGER},
+      </if>
+      <if test="timeMax != null">
+        #{timeMax,jdbcType=INTEGER},
+      </if>
+      <if test="timeDeltaType != null">
+        #{timeDeltaType,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null">
+        #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCardAttestationCost != null">
+        #{bankCardAttestationCost,jdbcType=DOUBLE},
+      </if>
+      <if test="overdueservicerate != null">
+        #{overdueservicerate,jdbcType=DOUBLE},
+      </if>
+      <if test="infoAttestationCost != null">
+        #{infoAttestationCost,jdbcType=DOUBLE},
+      </if>
+      <if test="defaultedInterest != null">
+        #{defaultedInterest,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="appshow != null">
+        #{appshow,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.model.Product">
+    update product
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyMin != null">
+        money_min = #{moneyMin,jdbcType=DOUBLE},
+      </if>
+      <if test="moneyMax != null">
+        money_max = #{moneyMax,jdbcType=DOUBLE},
+      </if>
+      <if test="timeMin != null">
+        time_min = #{timeMin,jdbcType=INTEGER},
+      </if>
+      <if test="timeMax != null">
+        time_max = #{timeMax,jdbcType=INTEGER},
+      </if>
+      <if test="timeDeltaType != null">
+        time_delta_type = #{timeDeltaType,jdbcType=INTEGER},
+      </if>
+      <if test="rate != null">
+        rate = #{rate,jdbcType=DOUBLE},
+      </if>
+      <if test="bankCardAttestationCost != null">
+        bank_card_attestation_cost = #{bankCardAttestationCost,jdbcType=DOUBLE},
+      </if>
+      <if test="overdueservicerate != null">
+        overdueServiceRate = #{overdueservicerate,jdbcType=DOUBLE},
+      </if>
+      <if test="infoAttestationCost != null">
+        info_attestation_cost = #{infoAttestationCost,jdbcType=DOUBLE},
+      </if>
+      <if test="defaultedInterest != null">
+        defaulted_interest = #{defaultedInterest,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="appshow != null">
+        appShow = #{appshow,jdbcType=INTEGER},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.Product">
+    update product
+    set name = #{name,jdbcType=VARCHAR},
+      money_min = #{moneyMin,jdbcType=DOUBLE},
+      money_max = #{moneyMax,jdbcType=DOUBLE},
+      time_min = #{timeMin,jdbcType=INTEGER},
+      time_max = #{timeMax,jdbcType=INTEGER},
+      time_delta_type = #{timeDeltaType,jdbcType=INTEGER},
+      rate = #{rate,jdbcType=DOUBLE},
+      bank_card_attestation_cost = #{bankCardAttestationCost,jdbcType=DOUBLE},
+      overdueServiceRate = #{overdueservicerate,jdbcType=DOUBLE},
+      info_attestation_cost = #{infoAttestationCost,jdbcType=DOUBLE},
+      defaulted_interest = #{defaultedInterest,jdbcType=DOUBLE},
+      status = #{status,jdbcType=INTEGER},
+      appShow = #{appshow,jdbcType=INTEGER},
+      valid = #{valid,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
