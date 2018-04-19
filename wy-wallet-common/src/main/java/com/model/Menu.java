@@ -1,9 +1,8 @@
 package com.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Menu implements Serializable {
+public class Menu {
     private Long id;
 
     private String name;

@@ -1,8 +1,6 @@
 package com.model;
 
-import java.io.Serializable;
-
-public class Bankcard implements Serializable {
+public class Bankcard {
     private Long id;
 
     private String bankCard;

@@ -1,8 +1,6 @@
 package com.model;
 
-import java.io.Serializable;
-
-public class OperateRecords implements Serializable {
+public class OperateRecords {
     private Long id;
 
     private Long operatorId;

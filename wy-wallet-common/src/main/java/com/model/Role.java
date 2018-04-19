@@ -1,9 +1,8 @@
 package com.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Role implements Serializable {
+public class Role {
     private Integer id;
 
     private String name;

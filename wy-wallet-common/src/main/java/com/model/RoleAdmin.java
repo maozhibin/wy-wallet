@@ -1,8 +1,6 @@
 package com.model;
 
-import java.io.Serializable;
-
-public class RoleAdmin implements Serializable {
+public class RoleAdmin {
     private Long id;
 
     private Long roleId;

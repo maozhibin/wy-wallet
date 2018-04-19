@@ -1,8 +1,6 @@
 package com.model;
 
-import java.io.Serializable;
-
-public class RoleMenu implements Serializable {
+public class RoleMenu {
     private Integer id;
 
     private Long roleId;

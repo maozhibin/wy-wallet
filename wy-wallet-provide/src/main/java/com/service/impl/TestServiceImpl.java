@@ -4,6 +4,8 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.dao.UserMapper;
 import com.model.User;
 import com.service.TestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -11,7 +13,6 @@ import java.util.Date;
 
 @Service(version = "1.0.0")
 public class TestServiceImpl implements TestService {
-
     @Resource
     private UserMapper userMapper;
 

@@ -1,9 +1,8 @@
 package com.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Collection implements Serializable {
+public class Collection {
     private Long id;
 
     private Long orderId;

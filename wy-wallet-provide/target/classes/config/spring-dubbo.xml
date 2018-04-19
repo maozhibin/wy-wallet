@@ -9,7 +9,7 @@
 
     <dubbo:application name="provider"/>
     <!-- 注册中心的ip地址 -->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181"/>
+    <dubbo:registry address="zookeeper://47.97.174.218:2181"/>
     
     <dubbo:protocol name="dubbo" port="28083"/>
     

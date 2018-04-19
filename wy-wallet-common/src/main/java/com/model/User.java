@@ -1,9 +1,8 @@
 package com.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable {
+public class User {
     private Long id;
 
     private String name;
@@ -11,6 +10,8 @@ public class User implements Serializable {
     private String phone;
 
     private String password;
+
+    private Integer sesameScore;
 
     private Integer riskScore;
 
@@ -50,13 +51,13 @@ public class User implements Serializable {
 
     private Date blacklistTime;
 
-    private String blacklistNotes;
-
     private Double oweMoney;
 
     private Integer valid;
 
     private Integer taoBaoAttestation;
+
+    private String blacklistNotes;
 
     public Long getId() {
         return id;
@@ -88,6 +89,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getSesameScore() {
+        return sesameScore;
+    }
+
+    public void setSesameScore(Integer sesameScore) {
+        this.sesameScore = sesameScore;
     }
 
     public Integer getRiskScore() {
@@ -242,14 +251,6 @@ public class User implements Serializable {
         this.blacklistTime = blacklistTime;
     }
 
-    public String getBlacklistNotes() {
-        return blacklistNotes;
-    }
-
-    public void setBlacklistNotes(String blacklistNotes) {
-        this.blacklistNotes = blacklistNotes;
-    }
-
     public Double getOweMoney() {
         return oweMoney;
     }
@@ -274,6 +275,14 @@ public class User implements Serializable {
         this.taoBaoAttestation = taoBaoAttestation;
     }
 
+    public String getBlacklistNotes() {
+        return blacklistNotes;
+    }
+
+    public void setBlacklistNotes(String blacklistNotes) {
+        this.blacklistNotes = blacklistNotes;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -284,6 +293,7 @@ public class User implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", phone=").append(phone);
         sb.append(", password=").append(password);
+        sb.append(", sesameScore=").append(sesameScore);
         sb.append(", riskScore=").append(riskScore);
         sb.append(", creditLimit=").append(creditLimit);
         sb.append(", age=").append(age);
@@ -303,10 +313,10 @@ public class User implements Serializable {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", blackList=").append(blackList);
         sb.append(", blacklistTime=").append(blacklistTime);
-        sb.append(", blacklistNotes=").append(blacklistNotes);
         sb.append(", oweMoney=").append(oweMoney);
         sb.append(", valid=").append(valid);
         sb.append(", taoBaoAttestation=").append(taoBaoAttestation);
+        sb.append(", blacklistNotes=").append(blacklistNotes);
         sb.append("]");
         return sb.toString();
     }

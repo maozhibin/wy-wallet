@@ -6,6 +6,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="sesame_score" jdbcType="INTEGER" property="sesameScore" />
     <result column="risk_score" jdbcType="INTEGER" property="riskScore" />
     <result column="credit_limit" jdbcType="DOUBLE" property="creditLimit" />
     <result column="age" jdbcType="INTEGER" property="age" />
@@ -25,44 +26,51 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="black_list" jdbcType="CHAR" property="blackList" />
     <result column="blacklist_time" jdbcType="TIMESTAMP" property="blacklistTime" />
-    <result column="blacklist_notes" jdbcType="CHAR" property="blacklistNotes" />
     <result column="owe_money" jdbcType="DOUBLE" property="oweMoney" />
     <result column="valid" jdbcType="INTEGER" property="valid" />
     <result column="tao_bao_attestation" jdbcType="INTEGER" property="taoBaoAttestation" />
   </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.model.User">
+    <result column="blacklist_notes" jdbcType="LONGVARCHAR" property="blacklistNotes" />
+  </resultMap>
   <sql id="Base_Column_List">
-    id, name, phone, password, risk_score, credit_limit, age, sex, id_card_no, id_card_frontPic_url, 
-    id_card_backPic_url, self_pic_url, company_name, company_tel, company_address, qq, 
-    education_degree, marriage, register_time, last_login_time, update_time, black_list, 
-    blacklist_time, blacklist_notes, owe_money, valid, tao_bao_attestation
+    id, name, phone, password, sesame_score, risk_score, credit_limit, age, sex, id_card_no, 
+    id_card_frontPic_url, id_card_backPic_url, self_pic_url, company_name, company_tel, 
+    company_address, qq, education_degree, marriage, register_time, last_login_time, 
+    update_time, black_list, blacklist_time, owe_money, valid, tao_bao_attestation
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <sql id="Blob_Column_List">
+    blacklist_notes
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from user
     where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insert" parameterType="com.model.User">
     insert into user (id, name, phone, 
-      password, risk_score, credit_limit, 
-      age, sex, id_card_no, 
-      id_card_frontPic_url, id_card_backPic_url, self_pic_url, 
-      company_name, company_tel, company_address, 
-      qq, education_degree, marriage, 
-      register_time, last_login_time, update_time, 
-      black_list, blacklist_time, blacklist_notes, 
-      owe_money, valid, tao_bao_attestation
-      )
+      password, sesame_score, risk_score, 
+      credit_limit, age, sex, 
+      id_card_no, id_card_frontPic_url, id_card_backPic_url, 
+      self_pic_url, company_name, company_tel, 
+      company_address, qq, education_degree, 
+      marriage, register_time, last_login_time, 
+      update_time, black_list, blacklist_time, 
+      owe_money, valid, tao_bao_attestation, 
+      blacklist_notes)
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{riskScore,jdbcType=INTEGER}, #{creditLimit,jdbcType=DOUBLE}, 
-      #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{idCardNo,jdbcType=VARCHAR}, 
-      #{idCardFrontpicUrl,jdbcType=VARCHAR}, #{idCardBackpicUrl,jdbcType=VARCHAR}, #{selfPicUrl,jdbcType=VARCHAR}, 
-      #{companyName,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}, #{companyAddress,jdbcType=VARCHAR}, 
-      #{qq,jdbcType=VARCHAR}, #{educationDegree,jdbcType=VARCHAR}, #{marriage,jdbcType=VARCHAR}, 
-      #{registerTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=CHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{blackList,jdbcType=CHAR}, #{blacklistTime,jdbcType=TIMESTAMP}, #{blacklistNotes,jdbcType=CHAR}, 
-      #{oweMoney,jdbcType=DOUBLE}, #{valid,jdbcType=INTEGER}, #{taoBaoAttestation,jdbcType=INTEGER}
-      )
+      #{password,jdbcType=VARCHAR}, #{sesameScore,jdbcType=INTEGER}, #{riskScore,jdbcType=INTEGER}, 
+      #{creditLimit,jdbcType=DOUBLE}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, 
+      #{idCardNo,jdbcType=VARCHAR}, #{idCardFrontpicUrl,jdbcType=VARCHAR}, #{idCardBackpicUrl,jdbcType=VARCHAR}, 
+      #{selfPicUrl,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}, 
+      #{companyAddress,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{educationDegree,jdbcType=VARCHAR}, 
+      #{marriage,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, #{lastLoginTime,jdbcType=CHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{blackList,jdbcType=CHAR}, #{blacklistTime,jdbcType=TIMESTAMP}, 
+      #{oweMoney,jdbcType=DOUBLE}, #{valid,jdbcType=INTEGER}, #{taoBaoAttestation,jdbcType=INTEGER}, 
+      #{blacklistNotes,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.model.User">
     insert into user
@@ -78,6 +86,9 @@
       </if>
       <if test="password != null">
         password,
+      </if>
+      <if test="sesameScore != null">
+        sesame_score,
       </if>
       <if test="riskScore != null">
         risk_score,
@@ -136,9 +147,6 @@
       <if test="blacklistTime != null">
         blacklist_time,
       </if>
-      <if test="blacklistNotes != null">
-        blacklist_notes,
-      </if>
       <if test="oweMoney != null">
         owe_money,
       </if>
@@ -147,6 +155,9 @@
       </if>
       <if test="taoBaoAttestation != null">
         tao_bao_attestation,
+      </if>
+      <if test="blacklistNotes != null">
+        blacklist_notes,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -161,6 +172,9 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sesameScore != null">
+        #{sesameScore,jdbcType=INTEGER},
       </if>
       <if test="riskScore != null">
         #{riskScore,jdbcType=INTEGER},
@@ -219,9 +233,6 @@
       <if test="blacklistTime != null">
         #{blacklistTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="blacklistNotes != null">
-        #{blacklistNotes,jdbcType=CHAR},
-      </if>
       <if test="oweMoney != null">
         #{oweMoney,jdbcType=DOUBLE},
       </if>
@@ -230,6 +241,9 @@
       </if>
       <if test="taoBaoAttestation != null">
         #{taoBaoAttestation,jdbcType=INTEGER},
+      </if>
+      <if test="blacklistNotes != null">
+        #{blacklistNotes,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -244,6 +258,9 @@
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="sesameScore != null">
+        sesame_score = #{sesameScore,jdbcType=INTEGER},
       </if>
       <if test="riskScore != null">
         risk_score = #{riskScore,jdbcType=INTEGER},
@@ -302,9 +319,6 @@
       <if test="blacklistTime != null">
         blacklist_time = #{blacklistTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="blacklistNotes != null">
-        blacklist_notes = #{blacklistNotes,jdbcType=CHAR},
-      </if>
       <if test="oweMoney != null">
         owe_money = #{oweMoney,jdbcType=DOUBLE},
       </if>
@@ -314,14 +328,18 @@
       <if test="taoBaoAttestation != null">
         tao_bao_attestation = #{taoBaoAttestation,jdbcType=INTEGER},
       </if>
+      <if test="blacklistNotes != null">
+        blacklist_notes = #{blacklistNotes,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.model.User">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.model.User">
     update user
     set name = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      sesame_score = #{sesameScore,jdbcType=INTEGER},
       risk_score = #{riskScore,jdbcType=INTEGER},
       credit_limit = #{creditLimit,jdbcType=DOUBLE},
       age = #{age,jdbcType=INTEGER},
@@ -341,7 +359,37 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       black_list = #{blackList,jdbcType=CHAR},
       blacklist_time = #{blacklistTime,jdbcType=TIMESTAMP},
-      blacklist_notes = #{blacklistNotes,jdbcType=CHAR},
+      owe_money = #{oweMoney,jdbcType=DOUBLE},
+      valid = #{valid,jdbcType=INTEGER},
+      tao_bao_attestation = #{taoBaoAttestation,jdbcType=INTEGER},
+      blacklist_notes = #{blacklistNotes,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.model.User">
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      sesame_score = #{sesameScore,jdbcType=INTEGER},
+      risk_score = #{riskScore,jdbcType=INTEGER},
+      credit_limit = #{creditLimit,jdbcType=DOUBLE},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      id_card_no = #{idCardNo,jdbcType=VARCHAR},
+      id_card_frontPic_url = #{idCardFrontpicUrl,jdbcType=VARCHAR},
+      id_card_backPic_url = #{idCardBackpicUrl,jdbcType=VARCHAR},
+      self_pic_url = #{selfPicUrl,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      company_tel = #{companyTel,jdbcType=VARCHAR},
+      company_address = #{companyAddress,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      education_degree = #{educationDegree,jdbcType=VARCHAR},
+      marriage = #{marriage,jdbcType=VARCHAR},
+      register_time = #{registerTime,jdbcType=TIMESTAMP},
+      last_login_time = #{lastLoginTime,jdbcType=CHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      black_list = #{blackList,jdbcType=CHAR},
+      blacklist_time = #{blacklistTime,jdbcType=TIMESTAMP},
       owe_money = #{oweMoney,jdbcType=DOUBLE},
       valid = #{valid,jdbcType=INTEGER},
       tao_bao_attestation = #{taoBaoAttestation,jdbcType=INTEGER}
